@@ -1,0 +1,14 @@
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "jsx": "react-native",
+    "moduleResolution": "bundler",
+    "customConditions": ["unif-react-native-amap-source"],
+    "types": ["react", "react-native"],
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "ios", "android"]
+}

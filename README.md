@@ -24,7 +24,7 @@ iOS / Android 需要真实原生工程、Expo Modules、平台高德 key 与前�
 
 ## 宿主与最小用法
 
-在任何地图/定位操作及 MapPicker 渲染之前，调用一次 `configureAmapHost`，提供已有权限访问、键盘展示作用域和外部 URL 操作。使用同一权限队列及同一键盘 Context；完整可运行参考见 [example/App.tsx](./example/App.tsx) 和 [example/src/host](./example/src/host)。这些宿主实现不打入 npm 库。
+在任何地图/定位操作及 MapPicker 渲染之前，调用一次 `configureAmapHost`，提供已有权限访问、键盘展示作用域和外部 URL 操作。使用同一权限队列及同一键盘 Context；完整可运行参考见 [example/src/App.tsx](./example/src/App.tsx) 和 [example/src/host](./example/src/host)。这些宿主实现不打入 npm 库。
 
 ```tsx
 import {
