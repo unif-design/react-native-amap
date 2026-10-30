@@ -1,10 +1,10 @@
-import type { ReGeocode } from 'expo-gaode-map';
+import type { LocationSdkObservation } from './sdkTypes';
 import { ADDRESS_FIELDS } from './constants';
 import { projectLocationObservation } from './projectLocationObservation';
 import type { LocationObservation } from './types';
 
 export function convertLocation(
-  value: ReGeocode,
+  value: LocationSdkObservation,
 ): LocationObservation | undefined {
   if (!value) return;
   const address: Record<string, unknown> = {

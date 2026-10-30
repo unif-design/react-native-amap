@@ -4,11 +4,12 @@ const path = require('node:path');
 const os = require('node:os');
 const { execFileSync } = require('node:child_process');
 const { test } = require('node:test');
+const ts = require('typescript');
 const root = path.join(__dirname, '..');
 const webpack = require(
   require.resolve('webpack', { paths: [path.join(root, 'website')] }),
 );
-test('实际 tarball 在默认 Web ESM 解析中使用 unsupported 分支且不加载高德原生 SDK', async () => {
+test('实际 tarball 公开类型可使用官方 SDK，Web 入口不加载原生 SDK', async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'unif-amap-web-'));
   try {
     const packed = JSON.parse(
@@ -35,6 +36,47 @@ test('实际 tarball 在默认 Web ESM 解析中使用 unsupported 分支且不�
       '-C',
       installed,
     ]);
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(installed, 'package.json'), 'utf8'),
+    );
+    for (const dependency of [
+      ...Object.keys(manifest.peerDependencies),
+      '@types',
+    ]) {
+      const destination = path.join(dir, 'node_modules', dependency);
+      fs.mkdirSync(path.dirname(destination), { recursive: true });
+      fs.symlinkSync(
+        path.join(root, 'node_modules', dependency),
+        destination,
+        'junction',
+      );
+    }
+    const entry = path.join(dir, 'publicEntry.ts');
+    fs.copyFileSync(path.join(root, '__tests__/types/publicEntry.ts'), entry);
+    const program = ts.createProgram([entry], {
+      noEmit: true,
+      strict: true,
+      // 沿用 RN 宿主配置，检查消费代码而非第三方声明内部。
+      skipLibCheck: true,
+      types: ['react', 'node'],
+      lib: ['lib.esnext.d.ts'],
+      customConditions: ['react-native-strict-api'],
+      target: ts.ScriptTarget.ESNext,
+      module: ts.ModuleKind.ESNext,
+      moduleResolution: ts.ModuleResolutionKind.Bundler,
+      jsx: ts.JsxEmit.ReactNative,
+      esModuleInterop: true,
+    });
+    const diagnostics = ts.getPreEmitDiagnostics(program);
+    assert.equal(
+      diagnostics.length,
+      0,
+      ts.formatDiagnosticsWithColorAndContext(diagnostics, {
+        getCurrentDirectory: () => dir,
+        getCanonicalFileName: (file) => file,
+        getNewLine: () => '\n',
+      }),
+    );
     fs.writeFileSync(
       path.join(dir, 'entry.js'),
       "import * as amap from '@unif/react-native-amap'; window.amap = amap;\n",

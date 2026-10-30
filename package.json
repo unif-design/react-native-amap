@@ -27,11 +27,10 @@
     "prepare": "bob build && node scripts/build-web.cjs",
     "typecheck": "tsc --noEmit && yarn example typecheck",
     "lint": "eslint src __tests__ example/src scripts --max-warnings=0",
-    "test": "jest --watchman=false \"$@\" && node --test __tests__/map/MapPicker/sdk/*.test.cjs && yarn test:package",
+    "test": "jest --watchman=false \"$@\" && yarn test:package",
     "build": "bob build && node scripts/build-web.cjs",
     "release": "release-it --only-version",
     "website": "yarn workspace @unif/react-native-amap-website",
-    "test:sdk": "jest --watchman=false --runInBand --testPathPatterns=/sdk/ && node --test __tests__/map/MapPicker/sdk/*.test.cjs",
     "test:package": "yarn build && node --test scripts/check-web.test.cjs"
   },
   "keywords": [

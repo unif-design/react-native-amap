@@ -7,9 +7,8 @@ export interface LocationCoordinates extends LatLng {
   coordinateSystem?: LocationCoordinateSystem;
 }
 
-export interface LocationAddress extends Pick<
-  ReGeocode,
-  (typeof ADDRESS_FIELDS)[number]
+export interface LocationAddress extends Partial<
+  Pick<ReGeocode, (typeof ADDRESS_FIELDS)[number]>
 > {
   formattedAddress?: ReGeocode['address'];
 }

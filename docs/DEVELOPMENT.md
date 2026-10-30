@@ -10,14 +10,14 @@
 
 官方 `create-react-native-library@0.64.0` 的 `library / js / vanilla` 模板用于 TS/TSX 库和真实原生 example。React Native 保持 0.88.1；模板默认 UI/SDK 版本不能代替已采用版本。
 
-- `yarn test`：原行为、注入、SDK 真实 JS 及工具测试。
+- `yarn test`：库自身原行为、注入、实际 tarball 的公开类型及 Web 入口。
 - `yarn typecheck` / `yarn build`：源码类型与 Bob 的 ESM/声明产物。
 - `yarn lint`：采用 RN ESLint 与格式检查。
 - `yarn website typecheck` / `yarn website test` / `yarn website build`：Docusaurus 与共享 LLM 生成链。
 - `node .github/scripts/check-library.cjs pack`：实际 tarball 出口。公开类型消费、Web 图及原生宿主需额外验证。
 - `yarn example build:android` / `yarn example build:ios`：原生消费者构建；定位、地图、权限和高德服务仍须真实设备验证。
 
-公开接口变更同步 `src/index.ts`、Web 入口、类型、example 和网站。SDK 补丁由宿主唯一维护，本库不保存副本或自动应用。开发、example、CI 和干净消费者从该维护源准备同版 SDK，并验证实际解析副本和原生消费者；缺少维护源或产物必须如实阻塞相关验证。
+公开接口变更同步 `src/index.ts`、Web 入口、类型、example 和网站。SDK 补丁由宿主唯一维护，本库不保存副本或自动应用。公共库 CI 使用官方 SDK 验证库代码和公开产物；补丁 SDK 集成测试与夹具由调用方工程维护，在该工程实际修补的 SDK 上执行。合并发布前同时取得两层通过的证据，不能以库侧替身或原生编译代替补丁行为验收。
 
 库只使用 `@unif/react-native-logger` 公共入口，不复制或安装 Logger 运行期。新宿主保持权限队列、键盘 Context 与 URL 错误策略；凭证、个人设备配置和运行原始产物留在仓库外。
 

@@ -2,6 +2,7 @@ import type { ReactNode, Ref } from 'react';
 import type { StoreApi } from 'zustand/vanilla';
 import type { ConfirmOptions } from '@unif/react-native-design';
 import type { CircleProps, MapViewProps, MapViewRef } from 'expo-gaode-map';
+import type { MapPickerSdkEvents } from './sdkTypes';
 import type {
   GetCurrentLocationInput,
   GetCurrentLocationResult,
@@ -62,7 +63,7 @@ export interface MapPickerControls extends Pick<
   exitSearch(): void;
 }
 export interface MapPickerEvents extends Pick<
-  MapViewProps,
+  MapPickerSdkEvents,
   'onLoad' | 'onCameraMove' | 'onCameraIdle' | 'onMapPress' | 'onUserDragStart'
 > {
   onRequestRelocate?(controls: MapPickerControls): void | Promise<void>;
@@ -210,15 +211,7 @@ export interface MapPickerSession {
   config: Readonly<MapPickerConfig>;
   store: StoreApi<MapPickerState>;
   controls: MapPickerControls;
-  events: Pick<
-    MapViewProps,
-    | 'onLoad'
-    | 'onCameraMove'
-    | 'onCameraIdle'
-    | 'onMapPress'
-    | 'onUserDragStart'
-    | 'onUserDragEnd'
-  >;
+  events: MapPickerSdkEvents;
   activate(): void;
   deactivate(): void;
   attachMap(map: MapViewRef | null): void;

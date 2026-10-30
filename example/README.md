@@ -3,7 +3,7 @@
 使用本库公开入口运行地图选点、单次定位和外部高德唤起。UI 使用 Design 1.13.6，SDK 保持 expo-gaode-map 2.3.2；iOS 最低 16.4。
 
 1. 在库根执行 `yarn install`。
-2. 由宿主维护源准备已修补 SDK。分别从库根和 example 读取 `require.resolve('expo-gaode-map/package.json')`，确认行为测试与原生工程真正解析到的副本都具备所需补丁。本仓不保留补丁或自动应用脚本。
+2. 运行补丁相关原生行为前，由调用方维护源准备已修补 SDK。从实际宿主目录读取 `require.resolve('expo-gaode-map/package.json')` 核对解析副本；补丁集成用例由调用方工程维护。本库公共 CI 使用官方 SDK 验证库代码和构建，不代表补丁行为已经验证。
 3. 将 `.env.example` 复制为忽略提交的 `.env`，填写适用于示例 Bundle ID / Android 包名的高德 key；不提交真实 key。
 4. Android 从库根执行 `yarn example android`。iOS 先在 example 执行 `bundle install` 与 `bundle exec pod install --project-directory=ios`，再从库根执行 `yarn example ios`。
 5. 启动后先阅读隐私说明，再明确同意初始化；缺 key 保留 unavailable 行为，不内置备用 key。

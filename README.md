@@ -68,6 +68,8 @@ if (result.status === 'success') {
 
 ## 示例与验证
 
+公共库 CI 使用官方 SDK，验证库行为、类型和真实 npm 产物。补丁相关 SDK 集成用例由调用方工程维护和执行，本库不保留重复副本。合并发布前同时核对库 CI 与调用方集成结果；两者都不替代真机或真实服务验收。
+
 ```sh
 yarn install
 yarn test
