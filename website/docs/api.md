@@ -1,6 +1,7 @@
 ---
 sidebar_position: 2
 ---
+
 # API
 
 所有入口和类型从 `@unif/react-native-amap` 根入口导入。源码产生的 TypeScript 声明为类型依据；不支持深层内部文件导入。
@@ -13,20 +14,20 @@ sidebar_position: 2
 - `cancelled`：返回、调用信号取消或被下一次函数调用接替。
 - `failed`：`error.reason` 为 `invalid_input` 或 `unavailable`，包含中文 `message`。
 
-| 配置 | 含义 |
-| --- | --- |
-| `initialCameraPosition` | SDK 初始视野，独立于查询中心、选择和范围圈 |
-| `initialLocationRequest` | 显式配置后执行一次定位；`includeAddress` 必须给定 |
-| `initialQueryCenter` | 初始查询中心；缺省时仅采用本轮请求的初始定位 |
-| `initialSelection` / `initialSelectionPresentation` | 原有选择及仅用于展示的标题、地址、来源 |
-| `selectInitialLocation` | 默认启用；已有初始定位可成为待选，不另发定位 |
-| `initialDisplay` | 拖动/缩放开关、位置图层和独立 `circle` |
-| `search` | 明确 `debounceMs` 与查询函数；可用 `onClear` / `onExit` 组合恢复 |
-| `panel` | `visible`、`unselectedTitle`、`renderAdditionalOptions` |
-| `beforeConfirm` | 同步或异步返回 `{ canConfirm: true }` 或 `{ canConfirm: false, message }` |
-| `getConfirmationOptions` | 直接使用 Design `ConfirmOptions`，取消确认保留选点窗口 |
-| `showCompleteButton` | 控制完成按钮；不改变选择或业务校验 |
-| `onReady` / `onInitialLocationResult` | 地图可操作与初始观测分别交接 |
+| 配置                                                | 含义                                                                      |
+| --------------------------------------------------- | ------------------------------------------------------------------------- |
+| `initialCameraPosition`                             | SDK 初始视野，独立于查询中心、选择和范围圈                                |
+| `initialLocationRequest`                            | 显式配置后执行一次定位；`includeAddress` 必须给定                         |
+| `initialQueryCenter`                                | 初始查询中心；缺省时仅采用本轮请求的初始定位                              |
+| `initialSelection` / `initialSelectionPresentation` | 原有选择及仅用于展示的标题、地址、来源                                    |
+| `selectInitialLocation`                             | 默认启用；已有初始定位可成为待选，不另发定位                              |
+| `initialDisplay`                                    | 拖动/缩放开关、位置图层和独立 `circle`                                    |
+| `search`                                            | 明确 `debounceMs` 与查询函数；可用 `onClear` / `onExit` 组合恢复          |
+| `panel`                                             | `visible`、`unselectedTitle`、`renderAdditionalOptions`                   |
+| `beforeConfirm`                                     | 同步或异步返回 `{ canConfirm: true }` 或 `{ canConfirm: false, message }` |
+| `getConfirmationOptions`                            | 直接使用 Design `ConfirmOptions`，取消确认保留选点窗口                    |
+| `showCompleteButton`                                | 控制完成按钮；不改变选择或业务校验                                        |
+| `onReady` / `onInitialLocationResult`               | 地图可操作与初始观测分别交接                                              |
 
 事件还包括 SDK 的 `onLoad / onCameraMove / onCameraIdle / onMapPress / onUserDragStart`，以及 `onUserDragEnd(center, controls)`、`onRequestRelocate(controls)`、`onSelectionChange(selection)`。移动视野不等于用户拖图；业务查询只由显式组合触发。
 
@@ -38,10 +39,14 @@ sidebar_position: 2
 
 ```ts
 getCurrentLocation({ includeAddress: false }, { signal });
-startLocationUpdates({ intervalMs: 1000 }, {
-  onLocation(location) {},
-  onStopped(reason) {},
-}, { signal });
+startLocationUpdates(
+  { intervalMs: 1000 },
+  {
+    onLocation(location) {},
+    onStopped(reason) {},
+  },
+  { signal },
+);
 ```
 
 单次返回 `success / cancelled / failed`。持续定位返回 `subscribed` 时，`updates.setInterval(intervalMs)` 可调整请求间隔，`updates.stop()` 可重复结束本轮。`subscribed` 不代表已获得位置；新有效观察接管旧观察，旧句柄与迟到结果不能误停新观察。停止原因是 `stopped / cancelled / replaced`。
@@ -54,14 +59,14 @@ startLocationUpdates({ intervalMs: 1000 }, {
 
 ## 地点查询
 
-| 操作 | 必需输入 |
-| --- | --- |
-| `searchAround(input, options?)` | `center`、`radiusMeters`、`page`、`pageSize` |
+| 操作                               | 必需输入                                                             |
+| ---------------------------------- | -------------------------------------------------------------------- |
+| `searchAround(input, options?)`    | `center`、`radiusMeters`、`keyword`、`page`、`pageSize`              |
 | `searchByKeyword(input, options?)` | `keyword`、`page`、`pageSize`，可给 `center / sortByDistance / city` |
-| `getPoiById(id, options?)` | 地点 ID |
-| `reverseGeocode(input, options?)` | `location`、`radiusMeters`、`includeExtensions` |
+| `getPoiById(id, options?)`         | 地点 ID                                                              |
+| `reverseGeocode(input, options?)`  | `location`、`radiusMeters`、`includeExtensions`                      |
 
-`options.signal` 取消当前等待。每次只发一个请求，不定位、不自动翻页、不补查或缓存。page 是 1–100 的整数，pageSize 是 1–25；周边半径 0–50000 米，逆地理半径 0–3000 米。坐标系只接受 GCJ02 或省略，不转换 WGS84；距离排序必须显式给有效中心。
+`keyword` 必须是字符串，可传空字符串；可选 `categories` 用于类别筛选。`options.signal` 取消当前等待。每次只发一个请求，不定位、不自动翻页、不补查或缓存。page 是 1–100 的整数，pageSize 是 1–25；周边半径 0–50000 米，逆地理半径 0–3000 米。坐标系只接受 GCJ02 或省略，不转换 WGS84；距离排序必须显式给有效中心。
 
 `PlaceQueryResult<T>` 为 `success(data) / cancelled / failed(error)`。保留空字符串、合法零值、部分坐标、缺失列表和空记录位置；成功空对象不被推断为不存在。真实服务的零半径效果仍需单独验证。
 

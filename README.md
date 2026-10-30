@@ -1,83 +1,55 @@
 # @unif/react-native-amap
 
-React Native 高德地图选点、单次与持续定位、地点查询和外部高德唤起。基于 `expo-gaode-map@2.3.2` 及宿主提供的既有补丁，库本体使用 TypeScript/TSX，不提供新的原生桥。
+为 React Native 应用提供高德地图选点、单次与持续定位、地点查询和外部高德应用唤起。
 
-- [文档网站](https://unif-design.github.io/react-native-amap/)
-- [API](https://unif-design.github.io/react-native-amap/docs/api) · [原生示例](./example) · [npm](https://www.npmjs.com/package/@unif/react-native-amap)
-- [开发资料](./docs/DEVELOPMENT.md) · [MIT 许可证](./LICENSE)
+[文档站](https://unif-design.github.io/react-native-amap/) · [API](website/docs/api.md) · [原生示例](example/README.md) · [npm](https://www.npmjs.com/package/@unif/react-native-amap) · [MIT 许可证](LICENSE)
 
-## 安装与支持范围
+## 接入要求
 
-```sh
-npm install @unif/react-native-amap expo-gaode-map@2.3.2
-```
+iOS／Android 需要原生宿主、高德平台 key 和前台位置权限。Expo Go 和 Web 不提供本库的原生能力。仅展示地图时，直接使用 `expo-gaode-map` 的地图组件。
 
-iOS / Android 需要真实原生工程、Expo Modules、平台高德 key 与前台位置权限。Expo Go 和 Web 不提供这些原生地图能力；Web 对选点、定位、地点查询和应用唤起保留明确的不支持结果。地图展示组件继续从 `expo-gaode-map` 直接使用。
+| 依赖              | 支持要求               | 本仓开发组合 |
+| ----------------- | ---------------------- | ------------ |
+| React             | `^19.3.0`              | 19.3.1       |
+| React Native      | `>=0.88.0`             | 0.88.1       |
+| Expo              | 精确 58.0.20           | 58.0.20      |
+| Expo Modules Core | 精确 58.0.27           | 58.0.27      |
+| expo-gaode-map    | 精确 2.3.2，需宿主补丁 | 2.3.2        |
 
-本版保持采用的宿主依赖：React 19.3.1、React Native 0.88.1、Expo 58.0.20、Expo Modules Core 58.0.27、Design 1.13.6、Icons 0.5.3、Reanimated 4.7.1、Worklets 0.13.0、Gesture Handler 3.4.0、Safe Area Context 5.10.1、SVG 15.16.0、Zustand 5.0.16，以及共用 Logger 0.1.3。完整 peer 列表见 [package.json](./package.json)；同时满足这些依赖各自的原生接线要求。库使用宿主已经安装的 Logger 运行期，不调用 `installLogging`。
+Design、Icons、Logger、动画与手势等 peer 也必须满足，完整清单见[快速开始](website/docs/quick-start.md#安装)和 [package.json](package.json)。开发组合不表示版本范围内的所有组合都已通过设备验证。
 
-## SDK 补丁前置
+## 安装与初始化
 
-本库依赖已修补的 `expo-gaode-map@2.3.2`，补丁由应用宿主统一维护和应用；npm 包不携带补丁，也不运行自动修改依赖的安装脚本。仅安装本包不足以获得等价行为。
+1. 安装本库与地图 SDK：
 
-宿主须在**实际被原生工程解析的 SDK 副本**上应用原补丁，并重装 Pods、重建 iOS/Android 二进制。需要按次定位与取消隔离、地点分页/排序和元数据、共享隐私初始化、真实拖动事件、相机与 Circle 处理等已有能力。完整步骤与验证见 [原生宿主与补丁](https://unif-design.github.io/react-native-amap/docs/native-host)。
+   ```sh
+   npm install @unif/react-native-amap expo-gaode-map@2.3.2
+   ```
 
-## 宿主与最小用法
+2. 按[原生宿主与补丁](website/docs/native-host.md)完成依赖接线、位置权限和平台 key 配置。在原生工程实际使用的 SDK 副本上应用宿主维护的补丁，再安装 Pods 并重建应用。本包不附带或自动应用补丁。
+3. 按[宿主配置](website/docs/quick-start.md#提供宿主依赖)调用 `configureAmapHost`，复用应用的权限、键盘和 URL 能力，并挂载 `MapPickerHost`。在用户同意隐私说明后调用 `initializeGaode`；这些准备应在地图操作或选点渲染前完成。
 
-在任何地图/定位操作及 MapPicker 渲染之前，调用一次 `configureAmapHost`，提供已有权限访问、键盘展示作用域和外部 URL 操作。使用同一权限队列及同一键盘 Context；完整可运行参考见 [example/src/App.tsx](./example/src/App.tsx) 和 [example/src/host](./example/src/host)。这些宿主实现不打入 npm 库。
+## 打开选点
 
-```tsx
-import {
-  configureAmapHost, initializeGaode, MapPickerHost, openMapPicker,
-} from '@unif/react-native-amap';
+宿主配置完成后，在异步事件处理中调用：
 
-configureAmapHost({
-  getPermissionAccess, // 宿主原有的前台位置权限访问
-  keyboard: { KeyboardViewport, KeyboardPresentationScope, useKeyboardPresentation },
-  canOpenExternalUrl,
-  openExternalUrl,
-});
-
-// 仅在用户真实同意高德隐私说明后调用；key 由宿主传入。
-initializeGaode({ iosKey, androidKey });
-
-// 应用 ThemeProvider、手势、安全区、键盘宿主之内挂载：
-<MapPickerHost />;
+```ts
+import { openMapPicker } from '@unif/react-native-amap';
 
 const result = await openMapPicker({
   initialLocationRequest: { includeAddress: false },
 });
 if (result.status === 'success') {
-  // result.selection 交付用户确认的坐标，不代表业务已经保存。
+  console.log(result.selection.coordinates);
+} else if (result.status === 'failed') {
+  console.warn(result.error.message);
 }
 ```
 
-## 公开 API
+结果为 `success`、`cancelled` 或 `failed`。成功只交付用户确认的选择，业务保存由应用负责。需要取消时可传入 `{ signal }`，具体配置见 [MapPicker API](website/docs/api.md#mappicker)。
 
-| 入口 | 职责 |
-| --- | --- |
-| `configureAmapHost` / `initializeGaode` | 安装宿主依赖；同意后按平台初始化 SDK，同一运行期只尝试一次 |
-| `MapPicker` / `MapPickerHost` / `openMapPicker` | 直接组件与函数式选点，共用选择、取消、搜索、确认及资源收尾 |
-| `MapPickerRow` | 场景附加候选行，复用选点行的布局与选中表现 |
-| `getCurrentLocation` / `startLocationUpdates` | 按次位置、可停止和调整间隔的持续观察 |
-| `projectLocationObservation` | 投影实际观测字段，保留缺值，不补造坐标或采集时间 |
-| `searchAround` / `searchByKeyword` / `getPoiById` / `reverseGeocode` | 独立单次查询，显式分页和半径，取消仅结束本次等待 |
-| `openAmap` | 六类外部高德动作；系统接收打开不等于路线或业务完成 |
+## 更多用法
 
-输入、结果和相关类型均从包根导出。完整参数及错误语义见网站 [API](https://unif-design.github.io/react-native-amap/docs/api)，类型以源码生成的 `.d.ts` 为准。
-
-## 示例与验证
-
-公共库 CI 使用官方 SDK，验证库行为、类型和真实 npm 产物。补丁相关 SDK 集成用例由调用方工程维护和执行，本库不保留重复副本。合并发布前同时核对库 CI 与调用方集成结果；两者都不替代真机或真实服务验收。
-
-```sh
-yarn install
-yarn test
-yarn typecheck
-yarn build
-yarn example android
-# iOS 首次运行先在 example/ios 执行 bundle exec pod install
-yarn example ios
-```
-
-将 `example/.env.example` 复制为忽略提交的 `example/.env`，由宿主提供适用于示例包名/Bundle ID 的平台 key。真实地图、位置权限、手势、键盘、持续观察、外部高德应用和服务响应需要真机验收；单元测试和网站构建不替代这些结果。
+- [定位、地点查询与外部高德](website/docs/api.md)：输入、返回结果、错误与取消语义。
+- [原生示例](example/README.md)：完整宿主实现、环境配置和运行步骤；真实位置与高德服务需在设备中验证。
+- [开发资料](docs/DEVELOPMENT.md)与[贡献指南](CONTRIBUTING.md)：工程来源、检查和交付流程。
