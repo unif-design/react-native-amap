@@ -1,7 +1,7 @@
 import type { Config } from '@docusaurus/types';
 const config: Config = {
   title: 'Unif AMap',
-  tagline: '高德地图、选点、定位与地点查询',
+  tagline: 'React Native 高德选点、定位、地点查询与应用唤起',
   url: 'https://unif-design.github.io',
   baseUrl: '/react-native-amap/',
   organizationName: 'unif-design',

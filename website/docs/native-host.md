@@ -1,6 +1,7 @@
 ---
 sidebar_position: 3
 ---
+
 # 原生宿主、补丁与验证
 
 库本体不包含 Swift/Kotlin 桥。`example/ios` 和 `example/android` 是真实 React Native 工程，接入 Expo Modules、现有 SDK、Design、手势、安全区与键盘控制器。
@@ -12,7 +13,7 @@ yarn install
 cp example/.env.example example/.env
 # 在本机 .env 填写适用于示例包标识的 AMAP_KEY_IOS / AMAP_KEY_ANDROID
 yarn example android
-# iOS：cd example/ios && bundle exec pod install，再回根目录
+# iOS：在 example 执行 bundle install 和 bundle exec pod install --project-directory=ios，再回根目录
 yarn example ios
 ```
 
