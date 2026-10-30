@@ -1,6 +1,6 @@
 {
   "name": "@unif/react-native-amap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Unif React Native 高德地图、选点、定位与地点查询",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
