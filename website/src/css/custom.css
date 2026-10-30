@@ -1,0 +1,28 @@
+@import '@unif/react-native-design/docs-home.css';
+:root {
+  --ifm-color-primary: #126ca6;
+  --ifm-font-family-base:
+    -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+}
+[data-theme='dark'] {
+  --ifm-color-primary: #68c4ff;
+}
+.amap-home {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+.amap-home h1 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+}
+.amap-home p {
+  max-width: 680px;
+  line-height: 1.8;
+}
+.amap-home nav {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 32px 0;
+}

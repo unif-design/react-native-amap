@@ -1,0 +1,10 @@
+'use strict';
+const assert = require('node:assert/strict');
+const path = require('node:path');
+require('./build-llms-core.test.js');
+require('./build-llms-site.test.js');
+const { buildBundle } = require('./llms/bundle');
+const bundle = buildBundle({ root: path.join(__dirname, '..') });
+assert(bundle['llms-full.txt'].toString('utf8').includes('configureAmapHost'));
+assert(bundle['llms-full.txt'].toString('utf8').includes('expo-gaode-map'));
+console.log('PASS AMap 文档包含公开接线与 SDK 前置');

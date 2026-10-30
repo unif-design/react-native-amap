@@ -1,0 +1,6 @@
+@unif/react-native-amap 使用 MIT 许可证。
+
+本库依赖的 expo-gaode-map 原项目由 TomWq 维护并使用 MIT 许可证：
+https://github.com/TomWq/expo-gaode-map
+
+本库不分发 SDK 补丁或应用密钥。已有 SDK 补丁由应用宿主维护和应用；原生高德 SDK 的使用、隐私同意、应用 key、平台配置及服务条款由宿主负责遵守。

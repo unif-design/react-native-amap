@@ -24,7 +24,7 @@ iOS / Android 需要真实原生工程、Expo Modules、平台高德 key 与前�
 
 ## 宿主与最小用法
 
-在任何地图/定位操作及 MapPicker 渲染之前，调用一次 `configureAmapHost`，提供已有权限访问、键盘展示作用域和外部 URL 操作。使用同一权限队列及同一键盘 Context；完整可运行参考见 [example/App.tsx](./example/App.tsx) 和 [example/src/host](./example/src/host)。这些宿主实现不打入 npm 库。
+在任何地图/定位操作及 MapPicker 渲染之前，调用一次 `configureAmapHost`，提供已有权限访问、键盘展示作用域和外部 URL 操作。使用同一权限队列及同一键盘 Context；完整可运行参考见 [example/src/App.tsx](./example/src/App.tsx) 和 [example/src/host](./example/src/host)。这些宿主实现不打入 npm 库。
 
 ```tsx
 import {
@@ -67,6 +67,8 @@ if (result.status === 'success') {
 输入、结果和相关类型均从包根导出。完整参数及错误语义见网站 [API](https://unif-design.github.io/react-native-amap/docs/api)，类型以源码生成的 `.d.ts` 为准。
 
 ## 示例与验证
+
+公共库 CI 使用官方 SDK，验证库行为、类型和真实 npm 产物。补丁相关 SDK 集成用例由调用方工程维护和执行，本库不保留重复副本。合并发布前同时核对库 CI 与调用方集成结果；两者都不替代真机或真实服务验收。
 
 ```sh
 yarn install
