@@ -2,7 +2,7 @@
 
 本库从已采用的 Portal 地图、定位、地点查询与外部高德唤起实现等价提取，源码归属为 `src/MapPicker`、`src/location`、`src/places`、`src/amapLaunch`。`src/initialization` 保留同意后的高德初始化行为，`src/host` 只接收宿主依赖。库不包含营销、拜访或 H5 消息适配。
 
-采用 `unif-design/.github` 已提交标准 `a29d71586a63a1b39d9a3acc446741289150ac41`，包括 [接入](https://github.com/unif-design/.github/blob/a29d71586a63a1b39d9a3acc446741289150ac41/ONBOARDING.md)、[等价迁移](https://github.com/unif-design/.github/blob/a29d71586a63a1b39d9a3acc446741289150ac41/docs/14-library-extraction.md) 和发布门禁。共享 workflow 与脚本由组织模板同步。
+库提取时采用组织标准修订 `a29d71586a63a1b39d9a3acc446741289150ac41` 的等价迁移要求。当前 CI、发布和共享工具的维护来源见[交付配置与检查](#交付配置与检查)。
 
 行为依据为 Unif 平台的 [地图](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/map.md)、[定位](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/location.md)、[地点查询](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/places.md) 和 [外部高德唤起](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/amap-launch.md) 契约。
 
@@ -26,3 +26,18 @@
 ## 提交与发布
 
 采用中文 Conventional Commit 和中文 PR。通过标准 CI、规则集及普通 Squash PR 合并；正式 npm 版本由组织 release-bot / OIDC 工作流产生。首次包身份引导、Trusted Publisher 和候选处理按组织标准执行，不能以本机发布替代正式链路。公开产物、网站部署、设备行为和业务接入分别记录证据。
+
+## 交付配置与检查
+
+共享 CI、发布配置和检查工具由 `github-delivery` 的模板与工具维护。Unif 组织值由 `code-delivery` 的 `assets/organization.json` 维护，接入时落实为本库 `.github/organization.json`，记录组织、包名规则、Pages 地址、发布 App 身份及远端设置。工具运行时读取项目文件，不依赖其他技能的安装目录；适用技能按当前任务独立选择。
+
+在仓库根目录按阶段执行：
+
+| 命令 | 检查范围 |
+| --- | --- |
+| `node .github/scripts/check-delivery.cjs` | 离线检查受管文件、组织配置与 source 元数据。 |
+| `node .github/scripts/check-library.cjs pack` | 完成库构建后，检查当前 tarball 的导出、声明与文件清单。 |
+| `node .github/scripts/check-library.cjs release` | 发行前校验 README、许可和发布配置，不执行发布。 |
+| `node .github/scripts/check-library.cjs published` | 联网核验 npm 当前版本的元数据、下载完整性与实际 tarball。 |
+
+CI 与发布步骤见本库 `.github/workflows/`，组织配置调整以项目文件及当前授权为准。本地检查、远端 CI、npm 发布、文档部署和设备验收分别报告。
