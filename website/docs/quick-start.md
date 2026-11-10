@@ -12,7 +12,7 @@ sidebar_position: 1
 npm install @unif/react-native-amap expo-gaode-map@2.3.2
 ```
 
-本仓开发组合为 React 19.3.1、React Native 0.88.1、Expo 58.0.20 / Expo Modules Core 58.0.27、Design 1.13.6、Icons 0.5.3、Reanimated 4.7.1、Worklets 0.13.0、Gesture Handler 3.4.0、Safe Area Context 5.10.1、SVG 15.16.0、Zustand 5.0.16 和 Logger 0.1.3。React 与 RN 的声明范围分别为 `^19.3.0`、`>=0.88.0`，Design 为 `^1.13.6`，Logger 为 `^0.1.3 || ^0.2.0`，其余 peer 采用上述精确版本；完整列表以 [package.json](https://github.com/unif-design/react-native-amap/blob/main/package.json) 为准。库只消费 Design 与 Logger 的公开接口，日志运行时仍由宿主统一安装。设计系统自身的 peer 和原生接线也必须满足。开发组合不表示所有版本组合都已验收。
+本仓开发组合为 React 19.3.1、React Native 0.88.1、Expo 58.0.23 / Expo Modules Core 58.0.30、Design 1.13.6、Icons 0.5.3、Reanimated 4.7.1、Worklets 0.13.0、Gesture Handler 3.4.0、Safe Area Context 5.11.1、SVG 15.16.0、Zustand 5.0.16 和 Logger 0.1.3。React 与 RN 的声明范围分别为 `^19.3.0`、`>=0.88.0`，Design 为 `^1.13.6`，Logger 为 `^0.1.3 || ^0.2.0`，Expo、Expo Modules Core、Safe Area Context 分别为 `^58.0.23`、`^58.0.30`、`^5.11.1`，其余 peer 采用上述精确版本；完整列表以 [package.json](https://github.com/unif-design/react-native-amap/blob/main/package.json) 为准。库只消费 Design 与 Logger 的公开接口，日志运行时仍由宿主统一安装。设计系统自身的 peer 和原生接线也必须满足。开发组合不表示所有版本组合都已验收。
 
 本库不分发补丁，也不自动修改消费者依赖。请由应用宿主在实际解析的 `expo-gaode-map@2.3.2` 上应用既有补丁，再安装 Pods 并重建两端应用。需要使用同一个已修补 SDK 副本；缺少所需原生事件或按次请求能力时，不能按普通未修补 SDK 验收。详见[宿主接线](./native-host.md)。
 

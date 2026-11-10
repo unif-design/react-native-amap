@@ -12,8 +12,8 @@ iOS／Android 需要原生宿主、高德平台 key 和前台位置权限。Expo
 | ----------------- | ---------------------- | ------------ |
 | React             | `^19.3.0`              | 19.3.1       |
 | React Native      | `>=0.88.0`             | 0.88.1       |
-| Expo              | 精确 58.0.20           | 58.0.20      |
-| Expo Modules Core | 精确 58.0.27           | 58.0.27      |
+| Expo              | `^58.0.23`           | 58.0.23      |
+| Expo Modules Core | `^58.0.30`           | 58.0.30      |
 | expo-gaode-map    | 精确 2.3.2，需宿主补丁 | 2.3.2        |
 
 Design、Icons、Logger、动画与手势等 peer 也必须满足，完整清单见[快速开始](website/docs/quick-start.md#安装)和 [package.json](package.json)。开发组合不表示版本范围内的所有组合都已通过设备验证。
