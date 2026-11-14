@@ -3,7 +3,7 @@ sidebar_position: 4
 ---
 # 开发与贡献
 
-采用 [Unif 组织工程标准](https://github.com/unif-design/.github/blob/main/ONBOARDING.md) 和 [等价迁移要求](https://github.com/unif-design/.github/blob/main/docs/14-library-extraction.md)。目录、规范来源与命令见 [仓库开发资料](https://github.com/unif-design/react-native-amap/blob/main/docs/DEVELOPMENT.md)。
+采用 [Unif 组织工程标准](https://github.com/unif-design/.github/blob/main/ONBOARDING.md) 和 [等价迁移要求](https://github.com/unif-design/.github/blob/main/docs/14-library-extraction.md)。`unif-amap` 插件的安装说明、工程规范与命令见 [仓库开发资料](https://github.com/unif-design/react-native-amap/blob/main/docs/DEVELOPMENT.md)。
 
 ```sh
 yarn lint

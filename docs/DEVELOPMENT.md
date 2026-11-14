@@ -6,7 +6,7 @@
 
 行为依据为 Unif 平台的 [地图](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/map.md)、[定位](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/location.md)、[地点查询](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/places.md) 和 [外部高德唤起](https://github.com/unif-design/unif-platform-architecture/blob/main/capabilities/amap-launch.md) 契约。
 
-通用规范使用 `uni-skills`：`uni-code-organization` 说明目录与文件组织，`uni-rn-dev` 说明 RN 实现要求，`uni-rn-library` 说明独立库与消费者验证，`uni-documentation` 说明文档与文档站维护。Unif 的设计、测试、审查和交付按 `unif-portal-dev-skills` 对应技能执行；本库接口与行为以公开类型和有效契约为准。
+通用规范使用 `uni-skills`：`uni-code-organization` 说明目录与文件组织，`uni-rn-dev` 说明 RN 实现要求，`uni-rn-library` 说明独立库与消费者验证，`uni-documentation` 说明文档与文档站维护。查阅本库接口和接入要求时，可从[Unif 技能市场](https://github.com/unif-skill/unif-portal-dev-skills#安装与使用)单独安装 `unif-amap` 插件。Unif 的设计、测试、审查和交付按 `unif-portal-dev-skills` 对应技能执行；本库接口与行为以公开类型和有效契约为准。
 
 ## 工程与验证
 
