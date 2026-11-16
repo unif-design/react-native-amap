@@ -1606,28 +1606,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - react-native-blob-util (0.25.1):
-    - hermes-engine
-    - RCTRequired
-    - RCTTypeSafety
-    - React-bridging
-    - React-Core
-    - React-cxxstableapi
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/core
-    - ReactNativeDependencies
-    - Yoga
   - react-native-config (1.7.2):
     - react-native-config/App (= 1.7.2)
   - react-native-config/App (1.7.2):
@@ -2497,7 +2475,6 @@ DEPENDENCIES:
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
   - React-mutationobservernativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/mutationobserver`)
-  - react-native-blob-util (from `../node_modules/react-native-blob-util`)
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-keyboard-controller (from `../node_modules/react-native-keyboard-controller`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -2675,8 +2652,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
   React-mutationobservernativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/mutationobserver"
-  react-native-blob-util:
-    :path: "../node_modules/react-native-blob-util"
   react-native-config:
     :path: "../node_modules/react-native-config"
   react-native-keyboard-controller:
@@ -2796,7 +2771,7 @@ SPEC CHECKSUMS:
   FBLazyVector: d2917ee70e37e91475560bf7ab916b0f60b8c14f
   fmt: ba0886e864ebb21d14c98b2e12e164b8002f5b93
   glog: 3cf7cb46f743c4bc758ae3e6d9c15bd1b4cfd6d4
-  hermes-engine: cdaa1767bb18b1678a62b7d93adb863065fe32f4
+  hermes-engine: 79484fc4e58f328d01b9339ef899ca633d3702ee
   LiquidGlass: 1b3c685dc9f5b34efe46877eada659f7b0996c1e
   RCT-Folly: 82921e585c0400eda46fac1068297aa9dfb035e4
   RCTDeprecation: 19889c4f12a004b88950b45f535dcbb3a499f81a
@@ -2837,7 +2812,6 @@ SPEC CHECKSUMS:
   React-Mapbuffer: dfc8cd737ef897f6dbd96bc25520ebd0a7c2fc91
   React-microtasksnativemodule: aff3139a911f92e351179d827d7d357bb407dcd7
   React-mutationobservernativemodule: d2a543496600c8c08e8877d3cb8e026e45a09a39
-  react-native-blob-util: 16c39107eeb26af2d6931422acb97f839b335139
   react-native-config: ea790c3af1ec07f5f800ce428c3ad2087aff5e87
   react-native-keyboard-controller: 1b2bc0a749d4082845c2f814a0a7104022827c0d
   react-native-safe-area-context: bcda756e1a9f94e4da773273a62b7d52473d3dc4
@@ -2877,7 +2851,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 2dbb2d65f3a487b8a69449f5b1b12b44656d2204
   ReactCodegen: 665c7ee0fca63dd9e2b2d1fc20cca903d0322633
   ReactCommon: 74339d6220b072716ad634726f5bf509ef5c8dbd
-  ReactNativeDependencies: 736cde3dcd4926ae1453669fd1d2d1ee6739fc0e
+  ReactNativeDependencies: a5164c3ebbe90d992022b5d9cbabbf770a6d7d05
   RNGestureHandler: 110192d73793ea46f30a406e5b37a9ac55d7da39
   RNPermissions: fe59a693ed154f7cfb42f031bfea5221ab67cc48
   RNReanimated: 8ac647fe0b899541a0a24313678da0c60ab560fc

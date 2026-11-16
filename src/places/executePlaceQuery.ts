@@ -34,20 +34,22 @@ export function executePlaceQuery<T>(
       finish({ status: 'cancelled' });
     }
     function fail(error: unknown, phase: string) {
-      const name =
-        error && typeof error === 'object'
-          ? Object.getOwnPropertyDescriptor(error, 'name')?.value
-          : undefined;
-      log.warn('places.unavailable', {
-        context,
-        phase: `${operation}.${phase}`,
-        code: 'places.unavailable',
-        fields: {
-          errorName:
-            typeof name === 'string' && SAFE_ERROR_NAMES.has(name)
-              ? name
-              : 'unknown',
-        },
+      log.warn('places.unavailable', () => {
+        const name =
+          error && typeof error === 'object'
+            ? Object.getOwnPropertyDescriptor(error, 'name')?.value
+            : undefined;
+        return {
+          context,
+          phase: `${operation}.${phase}`,
+          code: 'places.unavailable',
+          fields: {
+            errorName:
+              typeof name === 'string' && SAFE_ERROR_NAMES.has(name)
+                ? name
+                : 'unknown',
+          },
+        };
       });
       finish(placeFailed('unavailable'));
     }
