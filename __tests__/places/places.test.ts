@@ -73,9 +73,13 @@ test.each(entries)(
       error: { reason: 'unavailable' },
     });
     expect(sdk).toHaveBeenCalledTimes(2);
-    expect(JSON.stringify(mockWarn.mock.calls)).not.toMatch(
-      /PRIVATE|not found/,
-    );
+    expect(
+      JSON.stringify(
+        mockWarn.mock.calls.map(([, metadata]) =>
+          typeof metadata === 'function' ? metadata() : metadata,
+        ),
+      ),
+    ).not.toMatch(/PRIVATE|not found/);
   },
 );
 test('四操作只投影本次字段，快照坐标和分类，保留零与空条件', async () => {
@@ -317,4 +321,22 @@ test('无效分类在适配前拒绝，不执行分类对象的字符串转换',
   }
   expect(mockSdk.searchNearby).not.toHaveBeenCalled();
   expect(mockSdk.searchPOI).not.toHaveBeenCalled();
+});
+
+test('查询失败先交付原业务结果，日志错误名检查在metadata生产器中执行', async () => {
+  const read = jest.fn(Reflect.getOwnPropertyDescriptor);
+  const error = new Proxy(
+    { name: 'TypeError' },
+    { getOwnPropertyDescriptor: read },
+  );
+  mockSdk.searchPOI.mockRejectedValueOnce(error);
+  await expect(searchByKeyword(keyword)).resolves.toEqual({
+    status: 'failed',
+    error: { reason: 'unavailable', message: '暂时无法查询地点' },
+  });
+  expect(read).not.toHaveBeenCalled();
+  const metadata = mockWarn.mock.lastCall?.[1];
+  expect(typeof metadata).toBe('function');
+  expect(metadata()).toMatchObject({ fields: { errorName: 'TypeError' } });
+  expect(read).toHaveBeenCalled();
 });
