@@ -12,7 +12,7 @@ sidebar_position: 1
 npm install @unif/react-native-amap expo-gaode-map@2.3.2
 ```
 
-本仓开发组合为 React 19.3.1、React Native 0.88.1、Expo 58.0.23 / Expo Modules Core 58.0.30、Design 1.20.0、Icons 0.5.3、Reanimated 4.7.1、Worklets 0.13.0、Gesture Handler 3.4.0、Safe Area Context 5.11.1、SVG 15.16.0、Zustand 5.0.16 和 Logger 0.3.0。React 与 RN 的声明范围分别为 `^19.3.0`、`>=0.88.0`，Design 为 `^1.13.6`，Logger 为 `^0.3.0`，Expo、Expo Modules Core、Safe Area Context 分别为 `^58.0.23`、`^58.0.30`、`^5.11.1`，其余 peer 采用上述精确版本；完整列表以 [package.json](https://github.com/unif-design/react-native-amap/blob/main/package.json) 为准。库只消费 Design 与 Logger 的公开接口，日志运行时仍由宿主统一安装。设计系统自身的 peer 和原生接线也必须满足。开发组合不表示所有版本组合都已验收。
+本仓开发组合为 React 19.3.1、React Native 0.88.1、Expo 58.0.23 / Expo Modules Core 58.0.30、Design 1.20.0、Icons 0.5.3、Reanimated 4.7.1、Worklets 0.13.1、Gesture Handler 3.5.0、Safe Area Context 5.11.1、SVG 15.16.0、Zustand 5.1.0 和 Logger 0.3.0。React 与 RN 的声明范围分别为 `^19.3.0`、`>=0.88.0`，Design 为 `^1.13.6`，Logger 为 `^0.3.0`，Expo、Expo Modules Core、Safe Area Context 分别为 `^58.0.23`、`^58.0.30`、`^5.11.1`，Gesture Handler、Worklets、Zustand 分别为 `^3.4.0`、`^0.13.0`、`^5.0.16`，其余 peer 采用上述精确版本；完整列表以 [package.json](https://github.com/unif-design/react-native-amap/blob/main/package.json) 为准。库只消费 Design 与 Logger 的公开接口，日志运行时仍由宿主统一安装。设计系统自身的 peer 和原生接线也必须满足。开发组合不表示所有版本组合都已验收。
 
 定位和地点查询的日志专用错误投影由 Logger 0.3 的 metadata 生产器异步执行；原操作阶段和上下文保持本次调用归属，业务结果、取消和回调不等待诊断。日志运行时仍由宿主唯一安装。
 
